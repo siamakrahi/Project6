@@ -8,8 +8,8 @@ class UserAdmin(UserAdmin):
         (None, {"fields": ("username", "password")}),
         (_("Personal info"), {
             "fields": (
-                "id",
-                ("firstname", "lastname"),
+                #"id",
+                ("first_name", "last_name"),
                 "email",
                 "avatar",
                 "about",
@@ -29,11 +29,11 @@ class UserAdmin(UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ("id", "username", "email", "avatar", "about") 
+    #list_display = ("id", "username", "email") 
 
 class MessagingAdmin(admin.ModelAdmin):
     title = 'messaging_users'
-    list_display = ("id", "email", "your_comment", "phone_number")
+    list_display = ("id", "email", "phone_number", "your_comment")
     #readonly_fields = ("user",)
     def get_queryset_for_request_user(self, request):
         current_user = request.user

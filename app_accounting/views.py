@@ -110,6 +110,14 @@ def create_newsletter(request):
         form = NewsletterForm()
     return render(request, 'newsletter/', {'form': form})
 
+
+
+def search(request):
+    query = request.GET.get('q')
+    results = User.objects.filter(username__icontains=query)
+    return render(request, 'search_results.html', {'results': results})
+
+
        
 # def search (request,q):
 #     context = {

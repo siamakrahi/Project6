@@ -5,6 +5,9 @@ from django.db import models
 
 
 class User(AbstractUser):
+    #id = models.AutoField(primary_key=True)
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
     avatar = models.ImageField(upload_to='avatars/', blank=True)
     about = models.TextField(blank=True)
     def __str__(self):
