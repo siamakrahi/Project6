@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm 
 from app_accounting.models import User 
 from django.contrib.auth.forms import PasswordChangeForm 
-from .models import MessagingModel, ConsultingModel, NewsletterModel  
+from .models import MessagingModel, ConsultingModel, NewsletterModel, BlogPostModel 
 
 
 class CustomUserCreationForm(UserCreationForm): 
@@ -38,3 +38,8 @@ class NewsletterForm(forms.ModelForm):
         model = NewsletterModel 
         fields = '__all__' 
 
+
+class BlogPostForm(forms.ModelForm):
+    class Meta:
+        model = BlogPostModel
+        fields = '__all__'

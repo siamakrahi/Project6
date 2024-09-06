@@ -1,0 +1,139 @@
+
+{% comment %} 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>نقشه گوگل</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMOpN1zght1f2Mq9P9ET6XBxd2aZj-Q6Y"></script>
+    <script>
+        function initMap() {
+            var location = {lat: 35.6892, lng: 51.3890}; // مختصات تهران
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: location
+            });
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }
+    </script>
+</head>
+<body onload="initMap()">
+    <h1>نقشه گوگل</h1>
+    <div id="map" style="height: 500px; width: 100%;"></div>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>تماس با ما</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMOpN1zght1f2Mq9P9ET6XBxd2aZj-Q6Y"></script>
+    <script>
+        function initMap() {
+            var location = {lat: 35.6892, lng: 51.3890}; // مختصات تهران
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: location
+            });
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }
+    </script>
+</head>
+<body onload="initMap()">
+    <section class="contact__area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="contact-map">
+                        <div id="map" style="height: 500px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>تماس با ما</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMOpN1zght1f2Mq9P9ET6XBxd2aZj-Q6Y&libraries=places"></script>
+    <script>
+        var map;
+        var directionsService;
+        var directionsRenderer;
+
+        function initMap() {
+            var origin = {lat: 35.6892, lng: 51.3890}; // مختصات تهران
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: origin
+            });
+
+            var marker = new google.maps.Marker({
+                position: origin,
+                map: map
+            });
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+
+            var input = document.getElementById('destination-input');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.bindTo('bounds', map);
+
+            document.getElementById('route-button').addEventListener('click', function() {
+                calculateAndDisplayRoute(directionsService, directionsRenderer, origin);
+            });
+        }
+
+        function calculateAndDisplayRoute(directionsService, directionsRenderer, origin) {
+            var destination = document.getElementById('destination-input').value;
+            directionsService.route(
+                {
+                    origin: origin,
+                    destination: destination,
+                    travelMode: 'DRIVING'
+                },
+                function(response, status) {
+                    if (status === 'OK') {
+                        directionsRenderer.setDirections(response);
+                    } else {
+                        window.alert('Directions request failed due to ' + status);
+                    }
+                }
+            );
+        }
+    </script>
+</head>
+<body onload="initMap()">
+    <section class="contact__area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="contact-map">
+                        <div id="map" style="height: 500px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <input id="destination-input" type="text" placeholder="مقصد را وارد کنید">
+                    <button id="route-button">مسیریابی</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+ {% endcomment %}

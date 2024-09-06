@@ -1,0 +1,15 @@
+<!-- blog_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>پست‌های وبلاگ</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.content|truncatewords:30 }}</p>
+                <p><a href="{% url 'blog_detail' post.id %}">ادامه مطلب</a></p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

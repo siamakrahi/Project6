@@ -1,27 +1,31 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate    
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login, authenticate, logout    
 from django.contrib.auth.forms import AuthenticationForm    
 from django.contrib.auth.decorators import login_required    
-from django.contrib.auth import logout    
 from django.contrib import messages    
 from .forms import CustomUserCreationForm, MessagingForm, ConsultingForm, NewsletterForm 
-from .models import User, MessagingModel, ConsultingModel, NewsletterModel
-# from django.db.models import Q
+from .models import User, MessagingModel, ConsultingModel, NewsletterModel, BlogPostModel
+
 
 def about(request):   
     return render(request, 'about.html')   
  
+
 def blog(request):   
-    return render(request, 'blog.html')   
+    return render(request, 'blog.html')  
+ 
  
 def contact(request):   
-    return render(request, 'contact.html')   
+    return render(request, 'contact.html')  
+ 
  
 def home(request):   
-    return render(request, 'home.html')   
+    return render(request, 'home.html') 
+  
  
 def service(request):   
-    return render(request, 'service.html')   
+    return render(request, 'service.html') 
+  
  
 def team(request):   
     return render(request, 'team.html')   
@@ -111,24 +115,24 @@ def create_newsletter(request):
     return render(request, 'newsletter/', {'form': form})
 
 
+def map_view(request):
+    return render(request, 'contact.html')
+
 
 def search(request):
-    query = request.GET.get('q')
-    results = User.objects.filter(username__icontains=query)
-    return render(request, 'search_results.html', {'results': results})
+    query = request.GET.get('query')
+    if query:
+        results = BlogPostModel.objects.filter(title__icontains=query) | BlogPostModel.objects.filter(content__icontains=query)
+    else:
+        results = BlogPostModel.objects.none()
+    return render(request, 'search_results.html', {'results': results, 'query': query})
 
 
-       
-# def search (request,q):
-#     context = {
-#         'user': User.objects.filter(Q(first_name__icontains=q) | Q(last_name__icontains=q))
-#     }
-#     return render (request, 'home,html', context)
+def blog_list(request):
+    posts = BlogPostModel.objects.all().order_by('-published_date')
+    return render(request, 'blog_list.html', {'posts': posts})
 
-# def search_feature(request):
-#     if request.method == 'POST':
-#         search_query = request.POST['search_query']
-#         posts = Model.objects.filter(fieldName__contains=search_query)
-#         return render(request, 'app_accounting/home.html', {'query': search_query, 'posts': posts})
-#     else:
-#         return render(request, 'app_accounting/home.html', {})
+
+def blog_detail(request, post_id):
+    post = get_object_or_404(BlogPostModel, id=post_id)
+    return render(request, 'blog_detail.html', {'post': post})
